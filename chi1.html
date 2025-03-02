@@ -119,3 +119,85 @@ drawWheel();
 </script>
 </body>
 </html>
+
+<style>
+    /* 新增样式 */
+    #nutrition-card {
+        margin: 30px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+        max-width: 300px;
+        text-align: center;
+        transform: scale(0);
+        transition: transform 0.5s;
+    }
+    
+    .food-img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 15px 0;
+        border: 5px solid #ff6b6b;
+    }
+    
+    .calorie {
+        font-size: 24px;
+        color: #ff6b6b;
+        margin: 10px 0;
+    }
+    
+    .show-card {
+        transform: scale(1) !important;
+    }
+</style>
+
+<script>
+// 新增食物数据（建议替换为自己的图片URL）
+const foodDetails = {
+    "火锅": {
+        img: "https://example.com/hotpot.jpg",
+        calorie: 650
+    },
+    "寿司": {
+        img: "https://example.com/sushi.jpg",
+        calorie: 280
+    },
+    // 补充其他食物数据...
+    "馄饨": {
+        img: "https://example.com/wonton.jpg",
+        calorie: 320
+    }
+};
+
+// 在spin函数末尾添加
+setTimeout(() => {
+    // ...原有代码
+    
+    // 新增卡片显示
+    const card = document.createElement('div');
+    card.id = "nutrition-card";
+    card.innerHTML = `
+        <img class="food-img" src="${foodDetails[foods[selectedIndex]].img}">
+        <div class="calorie">${foodDetails[foods[selectedIndex]].calorie} 大卡</div>
+    `;
+    
+    document.body.appendChild(card);
+    setTimeout(() => card.classList.add('show-card'), 100);
+}, 3000);
+
+// 在CSS部分最后新增
+#result {
+    font-size: 24px;
+    color: #ff6b6b;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.show-result {
+    transform: translateY(20px);
+    opacity: 0;
+}
+
