@@ -1,0 +1,57 @@
+from flask import Flask, render_template_string
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+import threading
+
+app = Flask(__name__)
+
+# 配置参数（⚠️请勿泄露此代码）
+ACCOUNT = "15709699309"
+PASSWORD = "Rose012029"
+SUPER_TOPIC = "墨香铜臭"
+
+def auto_sign():
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    driver = webdriver.Chrome(options=options)
+    
+    try:
+        # 自动登录流程
+        driver.get('https://weibo.com/login.php')
+        time.sleep(3)
+        driver.find_element(By.ID, 'loginname').send_keys(ACCOUNT)
+        driver.find_element(By.NAME, 'password').send_keys(PASSWORD)
+        driver.find_element(By.XPATH, '//a[@node-type="submitBtn"]').click()
+        time.sleep(8)  # 处理可能的验证码
+        
+        # 自动签到
+        driver.get(f'https://weibo.com/p/{SUPER_TOPIC}/super_index')
+        sign_btn = driver.find_element(By.XPATH, '//a[contains(text(),"签到")]')
+        if "已签" not in sign_btn.text:
+            sign_btn.click()
+            return True
+        return False
+    
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return False
+    finally:
+        driver.quit()
+
+@app.route('/')
+def index():
+    # 在后台线程中执行签到（避免阻塞网页响应）
+    result = {"status": "正在签到..."}
+    def sign_task():
+        result["status"] = "签到成功" if auto_sign() else "签到失败"
+    threading.Thread(target=sign_task).start()
+    
+    return render_template_string('''
+        <h1>墨香铜臭超话自动签到系统</h1>
+        <p>当前状态：{{ status }}</p>
+        <p>账号：{{ account }}</p>
+    ''', status=result["status"], account=ACCOUNT)
+
+if __name__ == '__main__':
+    app.run(port=5000, debug=False)  # 关闭debug模式避免安全风险
