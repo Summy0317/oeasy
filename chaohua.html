@@ -22,3 +22,45 @@ def sign():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+from datetime import datetime
+
+def auto_sign():
+    # 配置参数（此处按您提供的信息填写）
+    weibo_id = "15709699309"       # 请确认账号准确性
+    password = "Rose012029"        # 请确保密码正确
+    super_topic = "墨香铜臭"        # 需确认超话URL标识
+
+    # 启动浏览器（无头模式）
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    driver = webdriver.Chrome(options=options)
+    
+    try:
+        # 登录流程
+        driver.get('https://weibo.com/login.php')
+        time.sleep(3)
+        driver.find_element(By.ID, 'loginname').send_keys(weibo_id)
+        driver.find_element(By.NAME, 'password').send_keys(password)
+        driver.find_element(By.XPATH, '//a[@node-type="submitBtn"]').click()
+        time.sleep(8)  # 增加等待时间应对可能的验证码
+
+        # 超话签到
+        driver.get(f'https://weibo.com/p/{super_topic}/super_index')
+        sign_btn = driver.find_element(By.XPATH, '//a[contains(text(),"签到")]')
+        if "已签" not in sign_btn.text:
+            sign_btn.click()
+            print(f"[{datetime.now()}] 墨香铜臭超话签到成功")
+        else:
+            print(f"[{datetime.now()}] 今日已签到")
+
+    except Exception as e:
+        print(f"错误：{str(e)}")
+    finally:
+        driver.quit()
+
+if __name__ == "__main__":
+    auto_sign()
