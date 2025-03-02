@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>今日吃什么</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+        }
+
+        /* 转盘容器 */
+        .wheel-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 50px 0;
+        }
+
+        /* 转盘主体 */
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            transition: transform 3s ease-out;
+            background: white;
+            border: 4px solid #333;
+        }
+
+        /* 食物选项 */
+        .food-item {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background: #ffd700;
+        }
+
+        /* 指针 */
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            transform: translateX(-50%);
+            background: #ff4757;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        /* 操作按钮 */
+        .spin-btn {
+            padding: 12px 30px;
+            font-size: 18px;
+            background: #00b894;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 20px;
+        }
+
+        /* 结果展示 */
+        .result {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .calories {
+            color: #666;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <div class="wheel" id="wheel"></div>
+    </div>
+    <button class="spin-btn" onclick="startSpin()">开始选择</button>
+    <div class="result" id="result"></div>
+
+<script>
+// 食物数据（20种示例）
+const FOODS = [
+    { name: "红烧肉", calories: 480 },
+    { name: "宫保鸡丁", calories: 320 },
+    { name: "鱼香肉丝", calories: 280 },
+    { name: "麻婆豆腐", calories: 220 },
+    { name: "水煮鱼", calories: 450 },
+    { name: "回锅肉", calories: 380 },
+    { name: "糖醋排骨", calories: 420 },
+    { name: "番茄炒蛋", calories: 180 },
+    { name: "青椒肉丝", calories: 260 },
+    { name: "酸菜鱼", calories: 350 },
+    { name: "土豆丝", calories: 150 },
+    { name: "咖喱鸡", calories: 320 },
+    { name: "干煸豆角", calories: 200 },
+    { name: "京酱肉丝", calories: 300 },
+    { name: "蚝油生菜", calories: 120 },
+    { name: "蒜蓉西兰花", calories: 90 },
+    { name: "辣子鸡丁", calories: 380 },
+    { name: "地三鲜", calories: 250 },
+    { name: "木须肉", calories: 280 },
+    { name: "红烧茄子", calories: 210 }
+];
+
+// 创建转盘
+function createWheel() {
+    const wheel = document.getElementById('wheel');
+    const angle = 360 / FOODS.length;
+
+    FOODS.forEach((food, index) => {
+        const item = document.createElement('div');
+        item.className = 'food-item';
+        item.style.transform = `rotate(${index * angle}deg)`;
+        item.textContent = food.name;
+        wheel.appendChild(item);
+    });
+}
+
+// 旋转控制
+let isSpinning = false;
+
+function startSpin() {
+    if(isSpinning) return;
+    isSpinning = true;
+
+    const wheel = document.getElementById('wheel');
+    const result = document.getElementById('result');
