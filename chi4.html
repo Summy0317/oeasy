@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>超级食物大转盘</title>
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --bg: #1a1a1a;
+        }
+        body {
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* 3D转盘容器 */
+        .wheel-3d {
+            width: 600px;
+            height: 600px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 4s cubic-bezier(0.17,0.89,0.32,1.28);
+            margin-top: 50px;
+        }
+
+        /* 单个食物区块 */
+        .slice {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: 50% 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            color: white;
+            backface-visibility: hidden;
+            cursor: pointer;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            transition: transform 0.3s;
+        }
+
+        /* 结果展示卡片 */
+        .result-card {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(0,0,0,0.9);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            text-align: center;
+            transition: transform 0.5s;
+            box-shadow: 0 0 50px var(--primary);
+        }
+        .result-card.active {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .food-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 20px 0;
+            border: 3px solid var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: var(--primary); margin-top: 30px;">今天吃什么？</h1>
+    <div class="wheel-3d" id="wheel"></div>
+
+<script>
+// 食物数据集（替换图片URL）
+const FOODS = [
+    { 
+        name: "🍣 寿司套餐",
+        color: "#FF9A8B",
+        cal: 420,
+        img: "https://example.com/sushi.jpg"
+    },
+    {
+        name: "🍕 意大利披萨",
+        color: "#FDC830",
+        cal: 680,
+        img: "https://example.com/pizza.jpg"
+    },
+    {
+        name: "🥩 顶级牛排",
+        color: "#FF4E50",
+        cal: 510,
+        img: "https://example.com/steak.jpg"
+    },
+    {
+        name: "🍜 豚骨拉面",
+        color: "#FDBB2D",
+        cal: 450,
+        img: "https://example.com/ramen.jpg"
+    }
+];
+
+// 初始化3D转盘
+function initWheel() {
+    const wheel = document.getElementById('wheel');
+    const angle = 360 / FOODS.length;
+
+    FOODS.forEach((food, index) => {
+        const slice = document.createElement('div');
+        slice.className = 'slice';
+        slice.style.transform = `rotateY(${index * angle}deg) translateZ(250px)`;
+        slice.style.background = food.color;
+        slice.textContent = food.name;
+        
+        slice.addEventListener('click', startSpin);
+        wheel.appendChild(slice);
+    });
+}
+
+// 旋转状态
+let isSpinning = false;
+let currentRotation = 0;
+
+// 启动旋转
+function startSpin() {
+    if(isSpinning) return;
+    isSpinning = true;
+
+    const wheel = document.getElementById('wheel');
+    const targetRotation = currentRotation + 1440 + Math.random()*360;
+
+    // 旋转动画
+    const startTime = Date.now();
+    function animate() {
+        const progress = (Date.now() - startTime) / 4000;
+        if(progress < 1) {
+            wheel.style.transform = `rotateY(${currentRotation + easeOutCubic
