@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>今日食物选择器</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* 转盘容器 */
+        .wheel {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            position: relative;
+            margin: 50px 0;
+            border: 4px solid #333;
+            overflow: hidden;
+            background: white;
+        }
+
+        /* 食物选项 */
+        .food-item {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+
+        /* 控制按钮 */
+        .action-btn {
+            padding: 15px 40px;
+            font-size: 20px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 20px;
+            transition: transform 0.2s;
+        }
+
+        /* 结果展示 */
+        .result {
+            font-size: 24px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .calorie {
+            color: #666;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>今天吃什么？</h1>
+    <div class="wheel" id="wheel"></div>
+    <button class="action-btn" onclick="startSpin()">开始选择</button>
+    <div class="result" id="result"></div>
+
+<script>
+// 食物数据（示例数据，可自行替换）
+const FOOD_DATA = Array.from({length: 50}, (_, i) => ({
+    name: `选项${i+1}号餐`, 
+    calorie: Math.floor(Math.random()*500 + 200), // 随机200-700大卡
+    color: `hsl(${i*7.2}, 70%, 80%)` // 彩虹色分布
+}));
+
+// 创建转盘
+function createWheel() {
+    const wheel = document.getElementById('wheel');
+    const angle = 360 / FOOD_DATA.length;
+
+    FOOD_DATA.forEach((food, index) => {
+        const item = document.createElement('div');
+        item.className = 'food-item';
+        item.style.transform = `rotate(${index * angle}deg)`;
+        item.style.background = food.color;
+        item.textContent = food.name;
+        wheel.appendChild(item);
+    });
+}
+
+// 旋转控制
+let isSpinning = false;
+
+function startSpin() {
+    if(isSpinning) return;
+    isSpinning = true;
+
+    const wheel = document.getElementById('wheel');
+    const result = document.getElementById('result');
+    const selectedIndex = Math.floor(Math.random() * FOOD_DATA.length);
+    
+    // 计算旋转角度（3圈 + 最终偏移）
+    const totalRotation = 1080 + (selectedIndex * (360 / FOOD_DATA.length));
+    
+    // 执行旋转动画
+    wheel.style.transition = 'transform 3s ease-out';
+    wheel.style.transform = `rotate(${totalRotation}deg)`;
+    
+    // 显示结果
+    setTimeout(() => {
+        const selectedFood = FOOD_DATA[selectedIndex];
+        result.innerHTML = `
+            <div>今天吃【${selectedFood.name}】</div>
+            <div class="calorie">预估热量：${selectedFood.calorie} 大卡</div>
+        `;
+        
+        // 重置转盘位置
+        wheel.style.transition = 'none';
+        wheel.style.transform = `rotate(${totalRotation % 360}deg)`;
+        isSpinning = false;
+    }, 3000);
+}
+
+// 初始化转盘
+createWheel();
+</script>
+</body>
+</html>
