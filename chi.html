@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #ffe8e8;
+            font-family: Arial, sans-serif;
+        }
+        #wheel-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 50px;
+        }
+        #wheel {
+            transition: transform 3s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        #button {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 60px;
+            background: #ff6b6b;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255,107,107,0.4);
+            z-index: 2;
+        }
+        #result {
+            font-size: 24px;
+            color: #ff6b6b;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wheel-container">
+        <div id="button" onclick="spin()">今天吃什么？</div>
+        <canvas id="wheel" width="500" height="500"></canvas>
+    </div>
+    <div id="result"></div>
+
+<script>
+const foods = [
+    "火锅", "寿司", "披萨", "汉堡", "烤肉",
+    "拉面", "炸鸡", "牛排", "麻辣烫", "饺子",
+    "咖喱饭", "烤鱼", "意面", "炒饭", "酸菜鱼",
+    "三明治", "沙拉", "米粉", "盖浇饭", "馄饨"
+];
+
+const colors = Array.from({length: 20}, (_, i) => 
+    `hsl(${(i * 18) % 360}, 70%, 60%)`
+);
+
+let isSpinning = false;
+let rotation = 0;
+
+function drawWheel() {
+    const canvas = document.getElementById('wheel');
+    const ctx = canvas.getContext('2d');
+    const center = canvas.width / 2;
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // 绘制扇形
+    foods.forEach((food, i) => {
+        ctx.beginPath();
+        ctx.moveTo(center, center);
+        ctx.arc(center, center, center, 
+            i * Math.PI / 10, 
+            (i + 1) * Math.PI / 10
+        );
+        ctx.fillStyle = colors[i];
+        ctx.fill();
+        
+        // 绘制文字
+        ctx.save();
+        ctx.translate(center, center);
+        ctx.rotate((i * 18 + 9) * Math.PI / 180);
+        ctx.fillStyle = 'white';
+        ctx.font = '18px Arial';
+        ctx.fillText(food, 180, 5);
+        ctx.restore();
+    });
+}
+
+function spin() {
+    if(isSpinning) return;
+    
+    isSpinning = true;
+    const wheel = document.getElementById('wheel');
+    const resultDiv = document.getElementById('result');
+    
+    // 随机生成旋转圈数（3-8圈）
+    const extraRotation = Math.random() * 5 * 360 + 1080;
+    const targetRotation = rotation + extraRotation;
+    const selectedIndex = Math.floor((360 - targetRotation % 360) / 18) % 20;
+    
+    wheel.style.transform = `rotate(${targetRotation}deg)`;
+    
+    setTimeout(() => {
+        resultDiv.textContent = `今日推荐：${foods[selectedIndex]}！`;
+        isSpinning = false;
+    }, 3000);
+}
+
+// 初始化转盘
+drawWheel();
+</script>
+</body>
+</html>
