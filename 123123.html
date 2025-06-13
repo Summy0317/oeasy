@@ -8,12 +8,12 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
   <style type="text/tailwindcss">
     @theme {
-      --color-primary: #4A90E2;      /* 主蓝色 */
-      --color-secondary: #69B1FF;     /* 次蓝色 */
-      --color-accent: #90CAF9;       /* 强调色 */
-      --color-light: #E3F2FD;        /* 浅蓝 */
-      --color-dark: #1A365D;         /* 深蓝 */
-      --color-night: #0A1128;        /* 夜空黑 */
+      --color-primary: #FF9BB3;
+      --color-secondary: #FFC8DD;
+      --color-accent: #FF6B9B;
+      --color-light: #FFF5F7;
+      --color-dark: #4B2B93;
+      --color-night: #1E1B4B;
       --font-inter: 'Inter', sans-serif;
     }
     
@@ -56,7 +56,7 @@
     
     .team-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 25px -5px rgba(74, 144, 226, 0.3);
+      box-shadow: 0 10px 25px -5px rgba(255, 107, 155, 0.2);
     }
     
     .nav-dot {
@@ -74,118 +74,24 @@
     }
     
     .nav-dot:not(.active) {
-      background-color: rgba(144, 202, 249, 0.5);
+      background-color: rgba(255, 107, 155, 0.5);
     }
     
     .night-feature {
       background: linear-gradient(135deg, var(--color-night) 0%, var(--color-dark) 100%);
     }
-    
-    /* 星空背景 */
-    .star-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: var(--color-night);
-    }
-    
-    .star {
-      position: absolute;
-      background-color: white;
-      border-radius: 50%;
-      animation: twinkle 3s infinite ease-in-out;
-    }
-    
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.5; box-shadow: 0 0 5px white; }
-      50% { opacity: 1; box-shadow: 0 0 15px white; }
-    }
-    
-    .cloud {
-      position: absolute;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 50px;
-      animation: float 20s infinite ease-in-out;
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0) translateX(0); }
-      50% { transform: translateY(-20px) translateX(10px); }
-    }
-    
-    /* 搞笑元素样式 */
-    .bubble {
-      position: relative;
-      background: var(--color-accent);
-      color: white;
-      padding: 10px;
-      border-radius: 10px;
-      display: inline-block;
-      margin: 10px 0;
-    }
-    
-    .bubble::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 20%;
-      width: 0;
-      height: 0;
-      border: 10px solid transparent;
-      border-top-color: var(--color-accent);
-      border-bottom: 0;
-      margin-left: -10px;
-      margin-bottom: -10px;
-    }
-    
-    .float-cat {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background: var(--color-accent);
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 24px;
-      z-index: 999;
-      animation: float 3s ease-in-out infinite;
-      cursor: pointer;
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    .fun-fact {
-      background: var(--color-secondary/30);
-      padding: 10px;
-      border-radius: 8px;
-      margin: 10px 0;
-      font-style: italic;
-    }
   </style>
 </head>
-<body class="font-inter text-light min-h-screen">
-  <!-- 星空背景 -->
-  <div class="star-bg" id="starBackground"></div>
-
+<body class="font-inter bg-light text-dark min-h-screen">
   <!-- 顶部导航 -->
-  <header class="fixed top-0 left-0 right-0 bg-dark/80 backdrop-blur-sm z-50 shadow-sm">
+  <header class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm z-50 shadow-sm">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
       <h1 class="text-2xl font-bold text-accent">咪咪喵喵猪~</h1>
       <div class="flex space-x-2">
-        <a href="#gallery" class="text-light/70 hover:text-accent transition">
+        <a href="#gallery" class="text-dark/70 hover:text-accent transition">
           <i class="fas fa-image"></i>
         </a>
-        <a href="#about" class="text-light/70 hover:text-accent transition">
+        <a href="#about" class="text-dark/70 hover:text-accent transition">
           <i class="fas fa-info-circle"></i>
         </a>
       </div>
@@ -193,74 +99,73 @@
   </header>
 
   <!-- 主视觉区域 -->
-  <section class="pt-20 pb-16 md:pt-28 md:pb-24 bg-gradient-to-b from-dark to-color-dark/80">
+  <section class="pt-20 pb-16 md:pt-28 md:pb-24 bg-gradient-to-b from-light to-secondary/30">
     <div class="container mx-auto px-4 text-center fade-in">
       <h2 class="text-[clamp(2rem,5vw,3rem)] font-bold mb-4 text-accent pulse-soft">
         咪咪喵喵猪~
       </h2>
-      <p class="text-lg md:text-xl text-light/80 max-w-2xl mx-auto mb-8 slide-up">
-        夜间创意工坊 · 星空下的温暖团队
+      <p class="text-lg md:text-xl text-dark/80 max-w-2xl mx-auto mb-8 slide-up">
+        夜间创意工坊 · 温暖治愈系团队
       </p>
       <div class="flex justify-center space-x-2 mb-10 slide-up" style="animation-delay: 0.2s;">
         <div class="nav-dot active" data-target="section1"></div>
         <div class="nav-dot" data-target="section2"></div>
         <div class="nav-dot" data-target="section3"></div>
       </div>
-      <a href="#gallery" class="inline-block bg-accent text-dark px-6 py-3 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 slide-up" style="animation-delay: 0.4s;">
-        探索星空创意 <i class="fas fa-arrow-down ml-2"></i>
+      <a href="#gallery" class="inline-block bg-accent text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 slide-up" style="animation-delay: 0.4s;">
+        探索夜间创意 <i class="fas fa-arrow-down ml-2"></i>
       </a>
     </div>
   </section>
 
   <!-- 图片展示区 -->
-  <section id="gallery" class="py-16 bg-dark/50">
+  <section id="gallery" class="py-16 bg-white">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12 slide-up">
-        <h3 class="text-3xl font-bold mb-4 text-accent">星空下的创意时刻</h3>
-        <p class="text-light/70 max-w-2xl mx-auto">夜幕降临时的灵感绽放，记录团队在星空下的温暖瞬间</p>
+        <h3 class="text-3xl font-bold mb-4 text-accent">夜间创意时刻</h3>
+        <p class="text-dark/70 max-w-2xl mx-auto">夜幕降临时的灵感绽放，记录团队协作的温暖瞬间</p>
       </div>
       
       <div class="image-grid slide-up" style="animation-delay: 0.2s;">
-        <!-- 团队合影放到第一张 -->
-        <div class="group relative overflow-hidden rounded-xl shadow-md">
-          <img src="https://img.picui.cn/free/2025/06/13/684bc18e79717.jpg" alt="团队夜间工作照" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
-          <div class="absolute inset-0 bg-dark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <p class="text-white text-center px-4">家庭合影（谁闭眼谁是小狗🐶）</p>
-          </div>
-        </div>
-        
         <div class="group relative overflow-hidden rounded-xl shadow-md">
           <img src="https://img.picui.cn/free/2025/06/13/684bc18cd3733.jpg" alt="团队夜间工作照" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
-          <div class="absolute inset-0 bg-dark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <p class="text-white text-center px-4">课表姐咪咪咪（在思考人生的喵生）</p>
+          <div class="absolute inset-0 bg-dark/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white text-center px-4">灵感在夜色中萌发</p>
           </div>
         </div>
         
         <div class="group relative overflow-hidden rounded-xl shadow-md">
           <img src="https://img.picui.cn/free/2025/06/13/684bc18da21c4.jpg" alt="团队夜间工作照" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
-          <div class="absolute inset-0 bg-dark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <p class="text-white text-center px-4">英伦豪华猫咪喵喵喵（贵族喵的优雅）</p>
+          <div class="absolute inset-0 bg-dark/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white text-center px-4">温暖灯光下的协作</p>
           </div>
         </div>
         
         <div class="group relative overflow-hidden rounded-xl shadow-md">
           <img src="https://img.picui.cn/free/2025/06/13/684b7aa14865d.jpg" alt="团队夜间工作照" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
-          <div class="absolute inset-0 bg-dark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <p class="text-white text-center px-4">夏咪喵喵喵（假装在工作的喵）</p>
+          <div class="absolute inset-0 bg-dark/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white text-center px-4">夜间创意讨论</p>
+          </div>
+        </div>
+        
+        <div class="group relative overflow-hidden rounded-xl shadow-md">
+          <img src="https://img.picui.cn/free/2025/06/13/684bc18e79717.jpg" alt="团队夜间工作照" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+          <div class="absolute inset-0 bg-dark/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white text-center px-4">深夜的温暖陪伴</p>
           </div>
         </div>
         
         <div class="group relative overflow-hidden rounded-xl shadow-md">
           <img src="https://img.picui.cn/free/2025/06/13/684bc18e5343e.jpg" alt="团队夜间工作照" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
-          <div class="absolute inset-0 bg-dark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <p class="text-white text-center px-4">猪咪（吃饱了才有力气想创意）</p>
+          <div class="absolute inset-0 bg-dark/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white text-center px-4">夜宵与创意碰撞</p>
           </div>
         </div>
         
         <div class="group relative overflow-hidden rounded-xl shadow-md">
           <img src="https://img.picui.cn/free/2025/06/13/684bc19217e19.png" alt="团队夜间工作照" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
-          <div class="absolute inset-0 bg-dark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <p class="text-white text-center px-4">又熙咪咪（我是来当吉祥物的喵）</p>
+          <div class="absolute inset-0 bg-dark/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <p class="text-white text-center px-4">星空下的灵感舞台</p>
           </div>
         </div>
       </div>
@@ -268,34 +173,34 @@
   </section>
 
   <!-- 团队介绍区 -->
-  <section id="about" class="py-16 bg-dark/30">
+  <section id="about" class="py-16 bg-secondary/20">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12 slide-up">
         <h3 class="text-3xl font-bold mb-4 text-accent">我们的故事</h3>
-        <p class="text-light/70 max-w-2xl mx-auto">2025年6月7日成立的夜间创意团队，在星空下编织温暖与梦想</p>
+        <p class="text-dark/70 max-w-2xl mx-auto">2025年6月7日成立的夜间创意团队，在月光下编织温暖与梦想</p>
       </div>
       
       <div class="grid md:grid-cols-2 gap-8 items-center">
         <div class="slide-up" style="animation-delay: 0.2s;">
           <h4 class="text-2xl font-bold mb-6 text-accent">夜猫子的创意王国</h4>
-          <p class="text-light/80 mb-6 leading-relaxed">
+          <p class="text-dark/80 mb-6 leading-relaxed">
             "咪咪喵喵猪~"团队成立于**2025年6月7日**，由一群习惯在夜间迸发灵感的创意人组成。我们相信夜色能过滤喧嚣，让思维更纯粹，让协作更专注。
           </p>
-          <p class="text-light/80 mb-6 leading-relaxed">
-            每天傍晚至深夜是我们的黄金工作时间，办公区的星空投影、咖啡香与轻声讨论构成了独特的团队氛围。我们擅长在寂静的夜晚将创意打磨成作品，用温暖的内容治愈每一个需要陪伴的灵魂。
+          <p class="text-dark/80 mb-6 leading-relaxed">
+            每天傍晚至深夜是我们的黄金工作时间，办公区的暖光灯、咖啡香与轻声讨论构成了独特的团队氛围。我们擅长在寂静的夜晚将创意打磨成作品，用温暖的内容治愈每一个需要陪伴的灵魂。
           </p>
-          <div class="bg-night text-light p-5 rounded-xl shadow-lg mb-8 slide-up" style="animation-delay: 0.3s;">
+          <div class="bg-night text-white p-5 rounded-xl shadow-lg mb-8 slide-up" style="animation-delay: 0.3s;">
             <h5 class="text-xl font-semibold mb-3 flex items-center">
               <i class="fas fa-moon text-accent mr-3"></i> 工作时间
             </h5>
-            <p class="text-light/80 space-y-2">
+            <p class="text-white/80 space-y-2">
               <span class="flex items-center"><i class="fas fa-clock mr-2 text-sm"></i> 周一至周五：18:00 - 24:00</span>
               <span class="flex items-center"><i class="fas fa-clock mr-2 text-sm"></i> 周末：16:00 - 22:00</span>
-              <span class="flex items-center text-accent"><i class="fas fa-star mr-2 text-sm"></i> 灵感爆发期可能延长至凌晨（别问，问就是被外星人绑架了）</span>
+              <span class="flex items-center text-accent"><i class="fas fa-star mr-2 text-sm"></i> 灵感爆发期可能延长至凌晨</span>
             </p>
           </div>
           <div class="flex space-x-4 mt-8">
-            <a href="#" class="bg-accent text-dark px-5 py-2 rounded-full hover:bg-accent/90 transition">
+            <a href="#" class="bg-accent text-white px-5 py-2 rounded-full hover:bg-accent/90 transition">
               夜间合作咨询
             </a>
             <a href="#" class="border-2 border-accent text-accent px-5 py-2 rounded-full hover:bg-accent/10 transition">
@@ -305,36 +210,36 @@
         </div>
         
         <div class="grid grid-cols-2 gap-4 slide-up" style="animation-delay: 0.4s;">
-          <div class="team-card bg-dark/50 p-5 rounded-xl shadow-md">
+          <div class="team-card bg-white p-5 rounded-xl shadow-md">
             <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4 mx-auto">
               <i class="fas fa-heart text-2xl text-accent"></i>
             </div>
             <h5 class="text-xl font-semibold text-center mb-2">深夜陪伴</h5>
-            <p class="text-light/70 text-center text-sm">用作品陪伴每一个失眠的夜晚（其实是我们自己睡不着）</p>
+            <p class="text-dark/70 text-center text-sm">用作品陪伴每一个失眠的夜晚</p>
           </div>
           
-          <div class="team-card bg-dark/50 p-5 rounded-xl shadow-md">
+          <div class="team-card bg-white p-5 rounded-xl shadow-md">
             <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4 mx-auto">
               <i class="fas fa-lightbulb text-2xl text-accent"></i>
             </div>
             <h5 class="text-xl font-semibold text-center mb-2">夜间灵感</h5>
-            <p class="text-light/70 text-center text-sm">夜色中绽放的创意火花（其实是咖啡喝多了）</p>
+            <p class="text-dark/70 text-center text-sm">夜色中绽放的创意火花</p>
           </div>
           
-          <div class="team-card bg-dark/50 p-5 rounded-xl shadow-md">
+          <div class="team-card bg-white p-5 rounded-xl shadow-md">
             <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4 mx-auto">
               <i class="fas fa-hand-holding-us text-2xl text-accent"></i>
             </div>
             <h5 class="text-xl font-semibold text-center mb-2">温暖协作</h5>
-            <p class="text-light/70 text-center text-sm">夜间团队的默契配合（其实是互相抢零食）</p>
+            <p class="text-dark/70 text-center text-sm">夜间团队的默契配合</p>
           </div>
           
-          <div class="team-card bg-dark/50 p-5 rounded-xl shadow-md">
+          <div class="team-card bg-white p-5 rounded-xl shadow-md">
             <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4 mx-auto">
               <i class="fas fa-moon text-2xl text-accent"></i>
             </div>
             <h5 class="text-xl font-semibold text-center mb-2">夜猫文化</h5>
-            <p class="text-light/70 text-center text-sm">专属夜间工作者的温暖社区（其实是熬夜冠军俱乐部）</p>
+            <p class="text-dark/70 text-center text-sm">专属夜间工作者的温暖社区</p>
           </div>
         </div>
       </div>
@@ -342,120 +247,67 @@
   </section>
 
   <!-- 夜间特色区 -->
-  <section class="py-16 night-feature text-light">
+  <section class="py-16 night-feature text-white">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12 slide-up">
         <h3 class="text-3xl font-bold mb-4 text-accent">我们的夜间特色</h3>
-        <p class="text-light/70 max-w-2xl mx-auto">当世界入睡时，我们用创意点亮黑夜（其实是怕黑）</p>
+        <p class="text-white/70 max-w-2xl mx-auto">当世界入睡时，我们用创意点亮黑夜</p>
       </div>
       
       <div class="grid md:grid-cols-3 gap-6">
         <div class="bg-dark/30 backdrop-blur-sm p-6 rounded-xl shadow-lg team-card slide-up">
-          <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+          <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mb-4">
             <i class="fas fa-coffee text-xl text-accent"></i>
           </div>
           <h5 class="text-xl font-semibold mb-3">深夜能量站</h5>
-          <p class="text-light/70">团队配备专业咖啡机与夜宵吧台，用美食为夜间创意充电（其实是为了续命）</p>
+          <p class="text-white/70">团队配备专业咖啡机与夜宵吧台，用美食为夜间创意充电</p>
         </div>
         
         <div class="bg-dark/30 backdrop-blur-sm p-6 rounded-xl shadow-lg team-card slide-up" style="animation-delay: 0.1s;">
-          <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+          <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mb-4">
             <i class="fas fa-headphones text-xl text-accent"></i>
           </div>
           <h5 class="text-xl font-semibold mb-3">沉浸式环境</h5>
-          <p class="text-light/70">定制化白噪音系统与灯光调节，打造专注高效的夜间工作场景（其实是为了掩盖打游戏的声音）</p>
+          <p class="text-white/70">定制化白噪音系统与灯光调节，打造专注高效的夜间工作场景</p>
         </div>
         
         <div class="bg-dark/30 backdrop-blur-sm p-6 rounded-xl shadow-lg team-card slide-up" style="animation-delay: 0.2s;">
-          <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+          <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mb-4">
             <i class="fas fa-star text-xl text-accent"></i>
           </div>
           <h5 class="text-xl font-semibold mb-3">星空创意会</h5>
-          <p class="text-light/70">每周举办露天创意分享会，在星光下碰撞灵感火花（其实是看星星数羊）</p>
+          <p class="text-white/70">每周举办露天创意分享会，在星光下碰撞灵感火花</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 页脚 -->
-  <footer class="bg-dark text-light py-8">
+  <footer class="bg-accent text-white py-8">
     <div class="container mx-auto px-4 text-center">
-      <h2 class="text-2xl font-bold mb-4 text-accent">咪咪喵喵猪~</h2>
-      <p class="mb-6 text-light/80 max-w-md mx-auto">
-        2025年6月7日成立 · 星空下的创意团队<br>
-        让每个深夜都有灵感与陪伴（和零食）
+      <h2 class="text-2xl font-bold mb-4">咪咪喵喵猪~</h2>
+      <p class="mb-6 text-white/80 max-w-md mx-auto">
+        2025年6月7日成立 · 夜间创意温暖团队<br>
+        让每个深夜都有灵感与陪伴
       </p>
       <div class="flex justify-center space-x-6 mb-6">
-        <a href="#" class="text-light hover:text-accent transition">
+        <a href="#" class="text-white hover:text-white/80 transition">
           <i class="fab fa-weixin text-2xl"></i>
         </a>
-        <a href="#" class="text-light hover:text-accent transition">
+        <a href="#" class="text-white hover:text-white/80 transition">
           <i class="fab fa-weibo text-2xl"></i>
         </a>
-        <a href="#" class="text-light hover:text-accent transition">
+        <a href="#" class="text-white hover:text-white/80 transition">
           <i class="fab fa-instagram text-2xl"></i>
         </a>
       </div>
-      <p class="text-light/60 text-sm">
+      <p class="text-white/60 text-sm">
         &copy; 2025 咪咪喵喵猪~ 团队. 保留所有权利.
       </p>
     </div>
   </footer>
 
-  <!-- 浮动猫咪按钮 -->
-  <div class="float-cat" id="catButton">
-    <i class="fas fa-paw"></i>
-  </div>
-
   <script>
-    // 生成星空背景
-    function createStarBackground() {
-      const starBackground = document.getElementById('starBackground');
-      const starCount = 100;
-      
-      for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        
-        // 随机位置
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
-        
-        // 随机大小和动画延迟
-        const size = Math.random() * 2 + 1;
-        const delay = Math.random() * 5;
-        
-        star.style.left = `${x}%`;
-        star.style.top = `${y}%`;
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        star.style.animationDelay = `${delay}s`;
-        
-        starBackground.appendChild(star);
-      }
-      
-      // 生成云朵
-      for (let i = 0; i < 5; i++) {
-        const cloud = document.createElement('div');
-        cloud.className = 'cloud';
-        
-        // 随机位置和大小
-        const x = Math.random() * 100;
-        const y = Math.random() * 30;
-        const width = Math.random() * 100 + 50;
-        const height = Math.random() * 30 + 20;
-        const delay = Math.random() * 10;
-        
-        cloud.style.left = `${x}%`;
-        cloud.style.top = `${y}%`;
-        cloud.style.width = `${width}px`;
-        cloud.style.height = `${height}px`;
-        cloud.style.animationDelay = `${delay}s`;
-        
-        starBackground.appendChild(cloud);
-      }
-    }
-
     // 导航点交互
     const navDots = document.querySelectorAll('.nav-dot');
     navDots.forEach(dot => {
@@ -498,10 +350,10 @@
     images.forEach(img => {
       img.addEventListener('click', () => {
         const largeImg = img.cloneNode();
-        largeImg.classList.add('absolute', 'top-0', 'left-0', 'w-full', 'h-full', 'object-contain', 'z-50', 'bg-dark', 'flex', 'items-center', 'justify-center', 'p-4');
+        largeImg.classList.add('absolute', 'top-0', 'left-0', 'w-full', 'h-full', 'object-contain', 'z-50', 'bg-white', 'flex', 'items-center', 'justify-center', 'p-4');
         
         const overlay = document.createElement('div');
-        overlay.classList.add('fixed', 'top-0', 'left-0', 'w-full', 'h-full', 'bg-dark/90', 'z-40', 'flex', 'items-center', 'justify-center');
+        overlay.classList.add('fixed', 'top-0', 'left-0', 'w-full', 'h-full', 'bg-dark/80', 'z-40', 'flex', 'items-center', 'justify-center');
         overlay.appendChild(largeImg);
         
         document.body.appendChild(overlay);
@@ -515,42 +367,6 @@
         });
       });
     });
-    
-    // 浮动猫咪按钮交互
-    const catButton = document.getElementById('catButton');
-    const funFacts = [
-      "我们团队其实是一群外星人伪装的！",
-      "工作时间越长，我们越像夜猫子！",
-      "创意枯竭时，我们会集体学猫叫！",
-      "我们的吉祥物其实是一只会说话的仓鼠！",
-      "深夜工作时，我们经常与月亮对话！",
-      "团队里有人能听懂猫语，你信吗？"
-    ];
-    
-    catButton.addEventListener('click', () => {
-      // 随机显示一个搞笑事实
-      const randomFact = funFacts[Math.floor(Math.random() * funFacts.length)];
-      
-      // 创建气泡提示
-      const bubble = document.createElement('div');
-      bubble.className = 'bubble fixed bottom-96 right-20 z-50';
-      bubble.textContent = randomFact;
-      
-      // 添加到页面
-      document.body.appendChild(bubble);
-      
-      // 3秒后移除
-      setTimeout(() => {
-        bubble.style.opacity = '0';
-        bubble.style.transition = 'opacity 0.5s';
-        setTimeout(() => {
-          document.body.removeChild(bubble);
-        }, 500);
-      }, 3000);
-    });
-    
-    // 页面加载完成后生成星空
-    window.addEventListener('load', createStarBackground);
   </script>
 </body>
 </html>
