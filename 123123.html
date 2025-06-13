@@ -5,53 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>创意工作室 | 核心团队与作品集</title>
   
-  <!-- 外部资源 -->
+  <!-- 外部资源引用（CDN链接规范声明） -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
   
-  <!-- Tailwind CSS 配置 -->
+  <!-- Tailwind CSS 配置（4空格缩进，层级清晰） -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            primary: '#6366f1',
-            secondary: '#a855f7',
-            accent: '#ec4899',
-            night: '#1e1b4b',
+            primary: '#6366f1',         // 主色调：靛蓝色
+            secondary: '#a855f7',       // 辅助色：紫色
+            accent: '#ec4899',          // 强调色：粉色
+            night: '#1e1b4b',           // 深色背景
           },
           fontFamily: {
-            inter: ['Inter', 'sans-serif'],
+            inter: ['Inter', 'sans-serif'], // 引入Inter字体
           },
           backgroundImage: {
-            'gradient-pro': 'linear-gradient(135deg, #1e1b4b 0%, #3b82f6 100%)',
+            'gradient-pro': 'linear-gradient(135deg, #1e1b4b 0%, #3b82f6 100%)', // 渐变背景
           },
           boxShadow: {
-            'glow': '0 0 15px rgba(99, 102, 241, 0.5)',
-            'glow-lg': '0 0 25px rgba(99, 102, 241, 0.7)',
+            'glow': '0 0 15px rgba(99, 102, 241, 0.5)',    // 发光阴影效果
+            'glow-lg': '0 0 25px rgba(99, 102, 241, 0.7)',  // 加强发光阴影
           }
         },
       }
     }
   </script>
   
-  <!-- 自定义工具类 -->
+  <!-- 自定义工具类（明确动画与视觉效果定义） -->
   <style type="text/tailwindcss">
     @layer utilities {
       .content-auto {
-        content-visibility: auto;
+        content-visibility: auto;  /* 性能优化：内容可见性自动控制 */
       }
       .text-glow {
-        text-shadow: 0 0 10px rgba(99, 102, 241, 0.7);
+        text-shadow: 0 0 10px rgba(99, 102, 241, 0.7);  /* 文字发光效果 */
       }
       .backdrop-blur-md {
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);  /* 背景模糊（适配iOS） */
       }
       .animate-fade-in {
-        animation: fadeIn 0.8s ease-in-out;
+        animation: fadeIn 0.8s ease-in-out;  /* 淡入动画 */
       }
       .animate-slide-up {
-        animation: slideUp 0.6s ease-out;
+        animation: slideUp 0.6s ease-out;  /* 上滑动画 */
       }
       @keyframes fadeIn {
         from { opacity: 0; }
@@ -64,39 +64,39 @@
     }
   </style>
   
-  <!-- 导入字体 -->
+  <!-- 字体导入（明确字重与字族声明） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body class="font-inter bg-gray-900 text-gray-100 overflow-x-hidden">
-  <!-- 导航栏 -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-night/80 backdrop-blur-md border-b border-primary/20 transition-all duration-300">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+  <!-- 导航栏（固定定位，带滚动动效） -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-night/80 backdrop-blur-md border-b border-primary/20 transition-all duration-300 py-4">
+    <div class="container mx-auto px-4 flex justify-between items-center">
       <a href="#" class="text-2xl font-bold text-white flex items-center">
         <i class="fa fa-paint-brush text-primary mr-2"></i>
         <span>创意工作室</span>
       </a>
       
-      <!-- 桌面导航 -->
+      <!-- 桌面端导航菜单（响应式隐藏） -->
       <div class="hidden md:flex space-x-8">
-        <a href="#home" class="text-white hover:text-primary transition-colors">首页</a>
-        <a href="#members" class="text-white hover:text-primary transition-colors">团队</a>
-        <a href="#portfolio" class="text-white hover:text-primary transition-colors">作品</a>
-        <a href="#contact" class="text-white hover:text-primary transition-colors">联系</a>
+        <a href="#home" class="text-white hover:text-primary transition-colors duration-300">首页</a>
+        <a href="#members" class="text-white hover:text-primary transition-colors duration-300">团队</a>
+        <a href="#portfolio" class="text-white hover:text-primary transition-colors duration-300">作品</a>
+        <a href="#contact" class="text-white hover:text-primary transition-colors duration-300">联系</a>
       </div>
       
-      <!-- 移动端菜单按钮 -->
-      <button class="md:hidden text-white text-2xl">
+      <!-- 移动端菜单按钮（Font Awesome图标） -->
+      <button class="md:hidden text-white text-2xl" id="mobile-menu-button">
         <i class="fa fa-bars"></i>
       </button>
     </div>
   </nav>
 
-  <!-- 主内容 -->
+  <!-- 主内容区域（语义化标签布局） -->
   <main>
-    <!-- 工作室成员介绍板块 - 专业级设计 -->
+    <!-- 团队介绍板块（渐变背景，动画效果） -->
     <section id="members" class="py-24 bg-gradient-pro text-white">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto text-center mb-16 animate-fade-in">
@@ -105,12 +105,12 @@
         </div>
         
         <div class="members-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          <!-- 成员1 - 家庭合影 -->
+          <!-- 成员1：家庭合影（卡片布局，带悬停效果） -->
           <div class="member-card member-card-hover bg-night/50 backdrop-blur-md rounded-2xl overflow-hidden border border-secondary/30 animate-slide-up" style="animation-delay: 0.1s">
             <div class="relative h-64 overflow-hidden">
               <img 
                 src="https://img.picui.cn/free/2025/06/13/684bc18e79717.jpg" 
-                alt="团队核心成员" 
+                alt="团队核心成员家庭合影" 
                 class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
               >
               <div class="absolute top-4 right-4 bg-primary/90 text-white text-sm font-medium px-3 py-1 rounded-full">
@@ -124,25 +124,25 @@
                 团队核心创意大脑，坚信凌晨三点的灵感最珍贵（当然，前提是没睡着）。
               </p>
               <div class="flex space-x-3">
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-weibo text-primary"></i>
                 </a>
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-instagram text-primary"></i>
                 </a>
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-linkedin text-primary"></i>
                 </a>
               </div>
             </div>
           </div>
           
-          <!-- 成员1 - 豪华英伦哥咪 -->
+          <!-- 成员2：豪华英伦哥咪（卡片布局，带角色标签） -->
           <div class="member-card member-card-hover bg-night/50 backdrop-blur-md rounded-2xl overflow-hidden border border-secondary/30 animate-slide-up" style="animation-delay: 0.2s">
             <div class="relative h-64 overflow-hidden">
               <img 
                 src="https://img.picui.cn/free/2025/06/13/684bc18da21c4.jpg" 
-                alt="豪华英伦哥咪" 
+                alt="团队成员豪华英伦哥咪" 
                 class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
               >
               <div class="absolute top-4 right-4 bg-primary/90 text-white text-sm font-medium px-3 py-1 rounded-full">
@@ -156,57 +156,57 @@
                 擅长出现在各个环节，稳住团队核心，为一切问题兜底，能力超强ACE出道！
               </p>
               <div class="flex space-x-3">
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-dribbble text-primary"></i>
                 </a>
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-behance text-primary"></i>
                 </a>
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-github text-primary"></i>
                 </a>
               </div>
             </div>
           </div>
           
-          <!-- 成员2 - 课表姐咪 -->
+          <!-- 成员3：课表姐咪（完整信息展示） -->
           <div class="member-card member-card-hover bg-night/50 backdrop-blur-md rounded-2xl overflow-hidden border border-secondary/30 animate-slide-up" style="animation-delay: 0.3s">
             <div class="relative h-64 overflow-hidden">
               <img 
                 src="https://img.picui.cn/free/2025/06/13/684bc18cd3733.jpg" 
-                alt="课表姐咪" 
+                alt="团队成员课表姐咪" 
                 class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
               >
               <div class="absolute top-4 right-4 bg-primary/90 text-white text-sm font-medium px-3 py-1 rounded-full">
-                文案策划+编剧设计+团队行政一姐
+                文案策划+制片+团队行政一姐
               </div>
             </div>
             <div class="p-6">
               <h3 class="text-2xl font-bold mb-1">课表姐咪</h3>
-              <p class="text-accent mb-4">侯团迷妹？？？</p>
+              <p class="text-accent mb-4">超级可爱的姐咪我rua</p>
               <p class="text-gray-300 mb-6">
-                拥有敏锐的情感洞察力，坚信每段文字都有温度，能够以最精确的形容一语中的，push团队不断向前。
+                拥有敏锐的情感洞察力，总能一语中的，push团队不断向前，而且老是随机投喂孩子们and最强ddl截停者，抢在截止前临危不乱地（超冷静、超性感、、、谁懂一下
               </p>
               <div class="flex space-x-3">
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-wechat text-primary"></i>
                 </a>
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-medium text-primary"></i>
                 </a>
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-book text-primary"></i>
                 </a>
               </div>
             </div>
           </div>
           
-          <!-- 成员3 - 猪咪 -->
+          <!-- 成员4：猪咪（完整卡片结构） -->
           <div class="member-card member-card-hover bg-night/50 backdrop-blur-md rounded-2xl overflow-hidden border border-secondary/30 animate-slide-up" style="animation-delay: 0.4s">
             <div class="relative h-64 overflow-hidden">
               <img 
                 src="https://img.picui.cn/free/2025/06/13/684bc18e5343e.jpg" 
-                alt="猪咪" 
+                alt="团队成员猪咪" 
                 class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
               >
               <div class="absolute top-4 right-4 bg-primary/90 text-white text-sm font-medium px-3 py-1 rounded-full">
@@ -221,25 +221,25 @@
                 团队的干饭王，坚信吃饱了才有灵感，特别可爱的瑞瑞。
               </p>
               <div class="flex space-x-3">
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-product-hunt text-primary"></i>
                 </a>
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-slack text-primary"></i>
                 </a>
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-cutlery text-primary"></i>
                 </a>
               </div>
             </div>
           </div>
           
-          <!-- 成员5 - 熙熙咪 -->
+          <!-- 成员5：熙熙咪（完整布局结构） -->
           <div class="member-card member-card-hover bg-night/50 backdrop-blur-md rounded-2xl overflow-hidden border border-secondary/30 animate-slide-up" style="animation-delay: 0.5s">
             <div class="relative h-64 overflow-hidden">
               <img 
                 src="https://img.picui.cn/free/2025/06/13/684bc19217e19.png" 
-                alt="熙熙咪" 
+                alt="团队成员熙熙咪" 
                 class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
               >
               <div class="absolute top-4 right-4 bg-primary/90 text-white text-sm font-medium px-3 py-1 rounded-full">
@@ -253,25 +253,25 @@
                 有人能懂吗？？？这个妞的创意能力，简直是让人忍不住吻了。
               </p>
               <div class="flex space-x-3">
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-dribbble text-primary"></i>
                 </a>
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-instagram text-primary"></i>
                 </a>
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-smile-o text-primary"></i>
                 </a>
               </div>
             </div>
           </div>
           
-          <!-- 成员5 - 夏咪咪喵 -->
+          <!-- 成员6：夏咪咪喵（完整卡片结构） -->
           <div class="member-card member-card-hover bg-night/50 backdrop-blur-md rounded-2xl overflow-hidden border border-secondary/30 animate-slide-up" style="animation-delay: 0.6s">
             <div class="relative h-64 overflow-hidden">
               <img 
                 src="https://img.picui.cn/free/2025/06/13/684b7aa14865d.jpg" 
-                alt="夏咪咪喵" 
+                alt="团队成员夏咪咪喵" 
                 class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
               >
               <div class="absolute top-4 right-4 bg-primary/90 text-white text-sm font-medium px-3 py-1 rounded-full">
@@ -286,13 +286,13 @@
                 很爱吃饭，，，热爱任何关于影像创作的事情
               </p>
               <div class="flex space-x-3">
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-github text-primary"></i>
                 </a>
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-code text-primary"></i>
                 </a>
-                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
                   <i class="fa fa-sun-o text-primary"></i>
                 </a>
               </div>
@@ -308,7 +308,7 @@
       </div>
     </section>
     
-    <!-- 视频作品集展示 -->
+    <!-- 视频作品集板块（响应式网格布局） -->
     <section id="video-portfolio" class="py-24 bg-gradient-pro text-white">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto text-center mb-16 animate-fade-in">
@@ -317,22 +317,19 @@
         </div>
         
         <div class="video-grid grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <!-- 视频作品1 -->
+          <!-- 视频作品1：《深夜创意工坊》幕后花絮 -->
           <div class="video-card group bg-night/50 backdrop-blur-md rounded-2xl overflow-hidden border border-secondary/30 animate-slide-up" style="animation-delay: 0.1s">
             <div class="relative h-80 overflow-hidden">
-              <!-- 视频封面 - 使用您提供的链接 -->
               <img 
                 src="https://img.picui.cn/free/2025/06/13/684bdc3386e2b.png" 
-                alt="视频作品封面" 
+                alt="《深夜创意工坊》幕后花絮视频封面" 
                 class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
               >
-              <!-- 播放按钮 -->
-              <div class="absolute inset-0 flex items-center justify-center bg-night/50 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+              <div class="absolute inset-0 flex items-center justify-center bg-night/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
                   <i class="fa fa-play text-white text-xl"></i>
                 </div>
               </div>
-              <!-- 视频标签 -->
               <div class="absolute top-4 right-4 bg-primary/90 text-white text-sm font-medium px-3 py-1 rounded-full">
                 最新作品
               </div>
@@ -357,22 +354,19 @@
             </div>
           </div>
           
-          <!-- 新增的视频作品2 -->
+          <!-- 视频作品2：《灵感瞬间》创意短片 -->
           <div class="video-card group bg-night/50 backdrop-blur-md rounded-2xl overflow-hidden border border-secondary/30 animate-slide-up" style="animation-delay: 0.2s">
             <div class="relative h-80 overflow-hidden">
-              <!-- 新添加的视频封面 -->
               <img 
                 src="https://img.picui.cn/free/2025/06/13/684be11a3ed21.png" 
-                alt="视频作品封面" 
+                alt="《灵感瞬间》创意短片视频封面" 
                 class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
               >
-              <!-- 播放按钮 -->
-              <div class="absolute inset-0 flex items-center justify-center bg-night/50 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+              <div class="absolute inset-0 flex items-center justify-center bg-night/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
                   <i class="fa fa-play text-white text-xl"></i>
                 </div>
               </div>
-              <!-- 视频标签 -->
               <div class="absolute top-4 right-4 bg-primary/90 text-white text-sm font-medium px-3 py-1 rounded-full">
                 创意短片
               </div>
@@ -396,25 +390,63 @@
               </div>
             </div>
           </div>
-          
-        
-        <div class="text-center mt-16 animate-fade-in">
-          <a href="#" class="inline-block px-8 py-3 bg-primary/80 text-white rounded-full font-medium hover:bg-primary transition-colors duration-300 transform hover:-translate-y-1 flex items-center mx-auto">
-            查看全部视频作品 <i class="fa fa-arrow-right ml-2"></i>
-          </a>
         </div>
       </div>
     </section>
     
-    <!-- 俏皮的夜晚歌曲链接 -->
+    <!-- 俏皮的夜晚歌曲链接（固定定位悬浮按钮） -->
     <div class="fixed bottom-4 right-4 z-50">
       <a href="https://music.163.com/song?id=28377852" target="_blank" class="inline-flex items-center justify-center bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-full shadow-lg transition-all duration-300 hover:scale-105">
         <i class="fa fa-music mr-2"></i> 播放《夜猫》 - 梁静茹
       </a>
     </div>
   </main>
+          
+  <!-- 工作室信息板块（卡片式布局） -->
+  <section id="studio-info" class="py-16 bg-night border-t border-primary/20">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto bg-night/50 backdrop-blur-md rounded-2xl p-8 border border-primary/30">
+        <h2 class="text-3xl font-bold mb-6 text-glow flex items-center">
+          <i class="fa fa-map-marker-alt text-primary mr-3"></i>
+          工作室信息
+        </h2>
+        
+        <div class="space-y-6">
+          <div class="flex items-start">
+            <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mr-4 shrink-0">
+              <i class="fa fa-map-marker text-2xl text-primary"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-1">工作地点</h3>
+              <p class="text-gray-300">中国传媒大学某个犄角旮旯</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start">
+            <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mr-4 shrink-0">
+              <i class="fa fa-phone text-2xl text-primary"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-1">联系电话</h3>
+              <p class="text-gray-300">15709699309</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start">
+            <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mr-4 shrink-0">
+              <i class="fa fa-weixin text-2xl text-primary"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-1">微信</h3>
+              <p class="text-gray-300">wxid—0317uohs0ytpme</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- 页脚 -->
+  <!-- 页脚（清晰的版权信息与社交媒体链接） -->
   <footer class="bg-night py-12 border-t border-primary/20">
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between items-center">
@@ -427,16 +459,16 @@
         </div>
         
         <div class="flex space-x-6">
-          <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">
             <i class="fa fa-weibo text-xl"></i>
           </a>
-          <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">
             <i class="fa fa-wechat text-xl"></i>
           </a>
-          <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">
             <i class="fa fa-instagram text-xl"></i>
           </a>
-          <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">
             <i class="fa fa-github text-xl"></i>
           </a>
         </div>
@@ -448,11 +480,14 @@
     </div>
   </footer>
 
-  <!-- JavaScript -->
+  <!-- JavaScript 交互逻辑（完整注释说明） -->
   <script>
-    // 导航栏滚动效果
+    // ----------------------
+    // 1. 导航栏滚动动效
+    // ----------------------
     window.addEventListener('scroll', function() {
       const nav = document.querySelector('nav');
+      // 滚动超过50px时，导航栏高度从py-4变为py-2（缩小）
       if (window.scrollY > 50) {
         nav.classList.add('py-2');
         nav.classList.remove('py-4');
@@ -462,23 +497,38 @@
       }
     });
     
-    // 平滑滚动
+    // ----------------------
+    // 2. 平滑滚动功能
+    // ----------------------
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault();
+        e.preventDefault();  // 阻止默认跳转行为
         
         const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
+        if (targetId === '#') return;  // 跳过空链接
         
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
+          // 滚动到目标元素，顶部留出80px导航栏高度
           window.scrollTo({
             top: targetElement.offsetTop - 80,
-            behavior: 'smooth'
+            behavior: 'smooth'  // 平滑滚动效果
           });
         }
       });
     });
+    
+    // ----------------------
+    // 3. 移动端菜单交互（扩展功能）
+    // ----------------------
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    if (mobileMenuButton) {
+      mobileMenuButton.addEventListener('click', function() {
+        // 此处可添加移动端菜单展开/收起逻辑
+        // 示例：document.querySelector('.mobile-menu').classList.toggle('active');
+        alert('移动端菜单功能待开发，点击查看完整代码逻辑');
+      });
+    }
   </script>
 </body>
 </html>
