@@ -8,20 +8,16 @@
   <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Tailwind 配置 -->
+  <!-- Tailwind 配置 - 强化蓝色主题 -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            // 初始粉色系
-            pinkPrimary: '#FF9BB3',
-            pinkAccent: '#FF6B9B',
-            // 后期蓝色系
-            bluePrimary: '#4A90E2',
-            blueDark: '#1A365D',
-            nightSky: '#0A1128',
-            nightDark: '#050814'
+            primary: '#4A90E2',       // 主蓝色
+            secondary: '#1A365D',     // 深蓝
+            night: '#0A1128',         // 夜空黑
+            accent: '#FF6B9B',        // 强调粉（保留用于交互元素）
           },
           fontFamily: {
             inter: ['Inter', 'sans-serif'],
@@ -29,7 +25,9 @@
           animation: {
             'pulse-soft': 'pulse-soft 2s infinite',
             'float': 'float 6s ease-in-out infinite',
-            'twinkle': 'twinkle 3s ease-in-out infinite'
+            'twinkle': 'twinkle 2s ease-in-out infinite',
+            'fade-in': 'fade-in 0.8s ease-out',
+            'slide-up': 'slide-up 0.8s ease-out',
           },
           keyframes: {
             'pulse-soft': {
@@ -38,11 +36,19 @@
             },
             'float': {
               '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-10px)' }
+              '50%': { transform: 'translateY(-15px)' }
             },
             'twinkle': {
               '0%, 100%': { opacity: 1 },
-              '50%': { opacity: 0.3 }
+              '50%': { opacity: 0.2 }
+            },
+            'fade-in': {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 }
+            },
+            'slide-up': {
+              '0%': { transform: 'translateY(50px)', opacity: 0 },
+              '100%': { transform: 'translateY(0)', opacity: 1 }
             }
           }
         },
@@ -55,11 +61,8 @@
       .content-auto {
         content-visibility: auto;
       }
-      .text-shadow {
-        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      }
-      .text-shadow-glow {
-        text-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+      .text-glow {
+        text-shadow: 0 0 10px rgba(74, 144, 226, 0.7);
       }
       .bg-gradient-night {
         background: linear-gradient(to bottom, #0A1128, #050814);
@@ -69,44 +72,54 @@
         background-color: white;
         border-radius: 50%;
         transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
       }
       .cloud {
         position: absolute;
-        background-color: rgba(255, 255, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.2);
         border-radius: 50px;
         transform: translate(-50%, -50%);
       }
       .image-hover {
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
       .image-hover:hover {
-        transform: scale(1.1);
-        z-index: 10;
+        transform: scale(1.1) rotate(2deg);
+        z-index: 20;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+      .card-hover {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .card-hover:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 30px rgba(74, 144, 226, 0.2);
       }
     }
   </style>
 </head>
 
-<body class="font-inter bg-gray-50 text-gray-800 transition-colors duration-500" id="app">
-  <!-- 星空背景 (后期新增) -->
+<body class="font-inter bg-gray-50 text-gray-800 transition-colors duration-700" id="app">
+  <!-- 星空背景 - 强化动态效果 -->
   <div id="starry-sky" class="fixed inset-0 pointer-events-none z-0 opacity-0 transition-opacity duration-1000">
-    <!-- 星星和云朵将通过JS动态生成 -->
+    <!-- 星星和云朵通过JS动态生成 -->
   </div>
 
-  <!-- 导航栏 -->
+  <!-- 导航栏 - 蓝色主题 -->
   <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="#hero" class="text-2xl font-bold text-pinkPrimary transition-colors duration-500">咪咪喵喵猪～</a>
+      <a href="#hero" class="text-2xl font-bold text-primary transition-colors duration-500">咪咪喵喵猪～</a>
       
       <div class="hidden md:flex space-x-8">
-        <a href="#hero" class="nav-dot active text-pinkPrimary" data-target="hero">.</a>
+        <a href="#hero" class="nav-dot active text-primary" data-target="hero">.</a>
         <a href="#gallery" class="nav-dot text-gray-400" data-target="gallery">.</a>
         <a href="#team" class="nav-dot text-gray-400" data-target="team">.</a>
+        <a href="#works" class="nav-dot text-gray-400" data-target="works">.</a>
         <a href="#night-features" class="nav-dot text-gray-400" data-target="night-features">.</a>
       </div>
       
       <div class="md:hidden">
-        <button id="menu-toggle" class="text-pinkPrimary focus:outline-none">
+        <button id="menu-toggle" class="text-primary focus:outline-none">
           <i class="fa fa-bars text-2xl"></i>
         </button>
       </div>
@@ -115,129 +128,138 @@
     <!-- 移动端菜单 -->
     <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full left-0 top-full">
       <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
-        <a href="#hero" class="nav-dot-mobile active text-pinkPrimary py-2" data-target="hero">• 首页</a>
-        <a href="#gallery" class="nav-dot-mobile text-gray-600 py-2" data-target="gallery">• 图片展示</a>
+        <a href="#hero" class="nav-dot-mobile active text-primary py-2" data-target="hero">• 首页</a>
+        <a href="#gallery" class="nav-dot-mobile text-gray-600 py-2" data-target="gallery">• 成员展示</a>
         <a href="#team" class="nav-dot-mobile text-gray-600 py-2" data-target="team">• 团队介绍</a>
+        <a href="#works" class="nav-dot-mobile text-gray-600 py-2" data-target="works">• 创意作品</a>
         <a href="#night-features" class="nav-dot-mobile text-gray-600 py-2" data-target="night-features">• 夜间特色</a>
       </div>
     </div>
   </nav>
 
-  <!-- 主视觉区 -->
+  <!-- 主视觉区 - 蓝色主题强化 -->
   <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-    <div class="absolute inset-0 bg-gradient-to-b from-pink-50 to-white z-0"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-blue-50 to-blue-100 z-0"></div>
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+      <div class="absolute inset-0 bg-[url('https://picsum.photos/id/1015/1920/1080')] bg-cover bg-center opacity-10"></div>
+    </div>
     
     <div class="container mx-auto px-4 z-10 text-center">
-      <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold text-pinkPrimary mb-4 animate-pulse-soft text-shadow">
+      <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold text-primary mb-4 animate-pulse-soft text-glow">
         咪咪喵喵猪～
       </h1>
       <p class="text-[clamp(1.2rem,4vw,1.8rem)] text-gray-700 mb-10 max-w-3xl mx-auto">
-        <span class="font-semibold text-pinkAccent">夜间创意工坊</span>・温暖治愈系团队
+        <span class="font-semibold text-accent">夜间创意工坊</span>・银河系治愈系团队
       </p>
       
       <div class="flex justify-center space-x-2 mb-16">
-        <span class="nav-dot active text-pinkPrimary" data-target="hero">.</span>
+        <span class="nav-dot active text-primary" data-target="hero">.</span>
         <span class="nav-dot text-gray-400" data-target="gallery">.</span>
         <span class="nav-dot text-gray-400" data-target="team">.</span>
+        <span class="nav-dot text-gray-400" data-target="works">.</span>
         <span class="nav-dot text-gray-400" data-target="night-features">.</span>
       </div>
       
       <div class="animate-bounce">
-        <a href="#gallery" class="inline-block px-8 py-3 bg-pinkPrimary text-white rounded-full font-medium shadow-lg hover:bg-pinkAccent transition-colors duration-300 transform hover:-translate-y-1">
-          探索我们 <i class="fa fa-arrow-down ml-2"></i>
+        <a href="#gallery" class="inline-block px-8 py-3 bg-primary text-white rounded-full font-medium shadow-lg hover:bg-primary/90 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          探索成员 <i class="fa fa-arrow-down ml-2"></i>
         </a>
       </div>
     </div>
     
-    <!-- 装饰元素 -->
-    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-pinkPrimary/20 rounded-full blur-3xl"></div>
-    <div class="absolute top-1/3 right-10 w-20 h-20 bg-pinkAccent/20 rounded-full blur-3xl"></div>
+    <!-- 装饰元素 - 蓝色光晕 -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-20 h-20 bg-primary/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 right-10 w-24 h-24 bg-primary/15 rounded-full blur-3xl"></div>
   </section>
 
-  <!-- 图片展示区 -->
+  <!-- 成员图片展示区 - 按指定顺序排列 -->
   <section id="gallery" class="py-20 bg-white">
     <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">创意瞬间捕捉</h2>
+      <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">✨ 创意天团成员展示 ✨</h2>
       
-      <div class="image-grid grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- 团队合影 (置顶为第一张) -->
+      <div class="image-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 1. 家庭合影 -->
         <div class="group relative overflow-hidden rounded-xl shadow-lg">
           <img 
-            src="https://img.picui.cn/...684bc18e79717.jpg" 
-            alt="团队合影" 
-            class="w-full h-80 md:h-96 object-cover image-hover"
+            src="https://img.picui.cn/free/2025/06/13/684bc18e79717.jpg" 
+            alt="家庭合影" 
+            class="w-full h-80 md:h-96 lg:h-100 object-cover image-hover"
             loading="lazy"
           >
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <p class="text-white text-center px-4">家庭合影（<span class="text-pinkAccent">谁闭眼谁是小狗🐶</span>）</p>
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+            <p class="text-white text-center text-lg">家庭合影（<span class="text-accent">谁闭眼谁是小狗🐶</span>）</p>
           </div>
         </div>
         
-        <!-- 其他图片 -->
+        <!-- 2. 豪华英伦哥咪 -->
         <div class="group relative overflow-hidden rounded-xl shadow-lg">
           <img 
-            src="https://img.picui.cn/free/2025/06/13/1.jpg" 
-            alt="创意工作场景" 
-            class="w-full h-80 md:h-96 object-cover image-hover"
+            src="https://img.picui.cn/free/2025/06/13/684bc18cd3733.jpg" 
+            alt="豪华英伦哥咪" 
+            class="w-full h-80 md:h-96 lg:h-100 object-cover image-hover"
             loading="lazy"
           >
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <p class="text-white text-center px-4">灵感爆发时刻（<span class="text-pinkAccent">其实是咖啡喝多了</span>）</p>
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+            <p class="text-white text-center text-lg">豪华英伦哥咪（<span class="text-accent">自称贵族的创意担当</span>）</p>
           </div>
         </div>
         
+        <!-- 3. 课表姐咪 -->
         <div class="group relative overflow-hidden rounded-xl shadow-lg">
           <img 
-            src="https://img.picui.cn/free/2025/06/13/2.jpg" 
-            alt="创意作品" 
-            class="w-full h-80 md:h-96 object-cover image-hover"
+            src="https://img.picui.cn/free/2025/06/13/684bc18da21c4.jpg" 
+            alt="课表姐咪" 
+            class="w-full h-80 md:h-96 lg:h-100 object-cover image-hover"
             loading="lazy"
           >
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <p class="text-white text-center px-4">创意成果展示（<span class="text-pinkAccent">自称天才之作</span>）</p>
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+            <p class="text-white text-center text-lg">课表姐咪（<span class="text-accent">永远在"听课"的摸鱼大师</span>）</p>
           </div>
         </div>
         
+        <!-- 4. 猪咪 -->
         <div class="group relative overflow-hidden rounded-xl shadow-lg">
           <img 
-            src="https://img.picui.cn/free/2025/06/13/3.jpg" 
-            alt="猫咪伙伴" 
-            class="w-full h-80 md:h-96 object-cover image-hover"
+            src="https://img.picui.cn/free/2025/06/13/684bc18e5343e.jpg" 
+            alt="猪咪" 
+            class="w-full h-80 md:h-96 lg:h-100 object-cover image-hover"
             loading="lazy"
           >
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <p class="text-white text-center px-4">猪咪（<span class="text-pinkAccent">吃饱了才有力气想创意</span>）</p>
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+            <p class="text-white text-center text-lg">猪咪（<span class="text-accent">吃饱了才有力气想创意的干饭王</span>）</p>
           </div>
         </div>
         
+        <!-- 5. 熙熙咪 -->
         <div class="group relative overflow-hidden rounded-xl shadow-lg">
           <img 
-            src="https://img.picui.cn/free/2025/06/13/4.jpg" 
-            alt="工作环境" 
-            class="w-full h-80 md:h-96 object-cover image-hover"
+            src="https://img.picui.cn/free/2025/06/13/684bc19217e19.png" 
+            alt="熙熙咪" 
+            class="w-full h-80 md:h-96 lg:h-100 object-cover image-hover"
             loading="lazy"
           >
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <p class="text-white text-center px-4">深夜工作区（<span class="text-pinkAccent">其实是熬夜冠军俱乐部</span>）</p>
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+            <p class="text-white text-center text-lg">熙熙咪（<span class="text-accent">能让所有人变开心的气氛组组长</span>）</p>
           </div>
         </div>
         
+        <!-- 6. 夏咪咪喵 -->
         <div class="group relative overflow-hidden rounded-xl shadow-lg">
           <img 
-            src="https://img.picui.cn/free/2025/06/13/5.jpg" 
-            alt="创意讨论" 
-            class="w-full h-80 md:h-96 object-cover image-hover"
+            src="https://img.picui.cn/free/2025/06/13/684b7aa14865d.jpg" 
+            alt="夏咪咪喵" 
+            class="w-full h-80 md:h-96 lg:h-100 object-cover image-hover"
             loading="lazy"
           >
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <p class="text-white text-center px-4">创意头脑风暴（<span class="text-pinkAccent">其实是在聊昨晚的电视剧</span>）</p>
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+            <p class="text-white text-center text-lg">夏咪咪喵（<span class="text-accent">夏天专属的清凉创意源泉</span>）</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 团队介绍区 -->
+  <!-- 团队介绍区 - 新增地址和电话 -->
   <section id="team" class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto text-center mb-16">
@@ -250,21 +272,37 @@
           <h3 class="text-3xl font-bold text-gray-800 mb-6">我们的诞生</h3>
           <p class="text-lg text-gray-600 mb-6">
             咪咪喵喵猪～夜间创意工坊正式成立于 
-            <span class="font-bold text-pinkAccent">2025年6月7日</span>，
+            <span class="font-bold text-accent">2025年6月7日</span>，
             由一群白天昏昏欲睡、夜晚精神抖擞的"夜猫子"组成。
           </p>
           <p class="text-lg text-gray-600 mb-8">
             我们坚信，最棒的创意往往在深夜诞生，当世界安静下来，脑洞才真正开始飞翔。
-            （当然，也可能是因为白天要上班，只能晚上搞事情 <span class="text-pinkAccent">😜</span>）
+            （当然，也可能是因为白天要上班，只能晚上搞事情 <span class="text-accent">😜</span>）
           </p>
           
-          <div class="bg-nightDark text-white p-6 rounded-xl shadow-lg">
-            <h4 class="text-xl font-semibold mb-4 flex items-center">
-              <i class="fa fa-clock-o mr-2 text-bluePrimary"></i> 工作时间
+          <div class="bg-night p-6 rounded-xl shadow-lg border border-secondary/30">
+            <h4 class="text-xl font-semibold mb-4 flex items-center text-white">
+              <i class="fa fa-clock-o mr-2 text-primary"></i> 工作时间 & 基地
             </h4>
-            <p class="text-lg mb-2">周一至周五：<span class="font-medium">18:00-24:00</span></p>
-            <p class="text-lg mb-2">周末：<span class="font-medium">16:00-22:00</span></p>
-            <p class="text-lg">灵感爆发期：<span class="font-medium">至凌晨（<span class="text-bluePrimary">外星人绑架时间</span>）</span></p>
+            <p class="text-lg mb-2 text-gray-300">工作时间：</p>
+            <p class="text-lg mb-2 text-gray-300">周一至周五：<span class="font-medium text-white">18:00-24:00</span></p>
+            <p class="text-lg mb-4 text-gray-300">周末：<span class="font-medium text-white">16:00-22:00</span>（灵感期至凌晨）</p>
+            <p class="text-lg text-gray-300">创意基地：<span class="font-medium text-white">中国传媒大学新闻学院某个犄角旮旯</span></p>
+          </div>
+          
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+              <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                <i class="fa fa-phone mr-2 text-primary"></i> 联系电话
+              </h4>
+              <p class="text-gray-600 font-medium">15709699309</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+              <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                <i class="fa fa-weixin mr-2 text-primary"></i> 微信联系
+              </h4>
+              <p class="text-gray-600 font-medium">wxid—0317uohsytpme</p>
+            </div>
           </div>
         </div>
         
@@ -276,7 +314,7 @@
               class="w-full h-full object-cover"
             >
           </div>
-          <div class="absolute -bottom-6 -left-6 bg-pinkPrimary text-white p-4 rounded-lg shadow-lg hidden md:block">
+          <div class="absolute -bottom-6 -left-6 bg-primary text-white p-4 rounded-lg shadow-lg hidden md:block animate-float">
             <p class="font-bold text-lg">我们的口号：</p>
             <p>"熬夜一时爽，一直熬夜一直爽！"</p>
           </div>
@@ -284,99 +322,233 @@
       </div>
       
       <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
-          <div class="w-16 h-16 bg-pinkPrimary/20 rounded-full flex items-center justify-center mb-6">
-            <i class="fa fa-heart text-pinkPrimary text-2xl"></i>
+        <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+            <i class="fa fa-heart text-primary text-2xl"></i>
           </div>
           <h4 class="text-xl font-bold text-gray-800 mb-3">深夜陪伴</h4>
           <p class="text-gray-600">
             当全世界都睡去，我们还醒着，为那些同样在深夜奋斗的灵魂提供创意陪伴
-            <br><span class="text-pinkAccent italic">(其实是我们自己睡不着)</span>
+            <br><span class="text-accent italic">(其实是我们自己睡不着)</span>
           </p>
         </div>
         
-        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
-          <div class="w-16 h-16 bg-pinkPrimary/20 rounded-full flex items-center justify-center mb-6">
-            <i class="fa fa-lightbulb-o text-pinkPrimary text-2xl"></i>
+        <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+            <i class="fa fa-lightbulb-o text-primary text-2xl"></i>
           </div>
           <h4 class="text-xl font-bold text-gray-800 mb-3">夜间灵感</h4>
           <p class="text-gray-600">
             相信夜晚的宁静能激发最独特的创意，每个深夜都是灵感绽放的时刻
-            <br><span class="text-pinkAccent italic">(其实是咖啡喝多了)</span>
+            <br><span class="text-accent italic">(其实是咖啡喝多了)</span>
           </p>
         </div>
         
-        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
-          <div class="w-16 h-16 bg-pinkPrimary/20 rounded-full flex items-center justify-center mb-6">
-            <i class="fa fa-smile-o text-pinkPrimary text-2xl"></i>
+        <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+            <i class="fa fa-smile-o text-primary text-2xl"></i>
           </div>
           <h4 class="text-xl font-bold text-gray-800 mb-3">治愈系创意</h4>
           <p class="text-gray-600">
             用温暖治愈的创意作品，为深夜的你带来一丝慰藉和快乐
-            <br><span class="text-pinkAccent italic">(其实是想让自己开心)</span>
+            <br><span class="text-accent italic">(其实是想让自己开心)</span>
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 夜间特色区 (后期新增) -->
-  <section id="night-features" class="py-20 bg-gradient-night text-white">
+  <!-- 作品展示区 - 新增交互区域 -->
+  <section id="works" class="py-20 bg-gradient-night text-white">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto text-center mb-16">
-        <h2 class="text-4xl font-bold text-white mb-4 text-shadow-glow">我们的夜间特色</h2>
+        <h2 class="text-4xl font-bold mb-4 text-glow">✨ 创意作品展示 ✨</h2>
+        <p class="text-lg text-gray-300">每一个深夜灵感的结晶，都在这里闪耀</p>
+      </div>
+      
+      <!-- 作品筛选 - 可交互筛选按钮 -->
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <button class="work-filter active px-6 py-2 bg-primary rounded-full text-white font-medium hover:bg-primary/90 transition-colors">
+          全部作品
+        </button>
+        <button class="work-filter px-6 py-2 bg-secondary/50 rounded-full text-white font-medium hover:bg-secondary/70 transition-colors">
+          平面设计
+        </button>
+        <button class="work-filter px-6 py-2 bg-secondary/50 rounded-full text-white font-medium hover:bg-secondary/70 transition-colors">
+          视频创意
+        </button>
+        <button class="work-filter px-6 py-2 bg-secondary/50 rounded-full text-white font-medium hover:bg-secondary/70 transition-colors">
+          文案策划
+        </button>
+        <button class="work-filter px-6 py-2 bg-secondary/50 rounded-full text-white font-medium hover:bg-secondary/70 transition-colors">
+          互动装置
+        </button>
+      </div>
+      
+      <!-- 作品网格 - 可点击查看详情 -->
+      <div class="work-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 作品1 - 占位图，可替换为实际作品 -->
+        <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover">
+          <img 
+            src="https://picsum.photos/id/1035/800/600" 
+            alt="创意作品1" 
+            class="w-full h-64 md:h-80 object-cover"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-night to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
+            <h3 class="text-xl font-bold mb-2 text-white">深夜咖啡海报设计</h3>
+            <p class="text-gray-300 mb-4">为深夜咖啡馆创作的治愈系海报，灵感来源于凌晨三点的星空</p>
+            <a href="#" class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary/90 transition-colors">
+              查看详情 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 作品2 - 占位图，可替换为实际作品 -->
+        <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover">
+          <img 
+            src="https://picsum.photos/id/1061/800/600" 
+            alt="创意作品2" 
+            class="w-full h-64 md:h-80 object-cover"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-night to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
+            <h3 class="text-xl font-bold mb-2 text-white">星空主题互动装置</h3>
+            <p class="text-gray-300 mb-4">用代码实现的沉浸式星空互动体验，触碰屏幕会绽放不同颜色的星光</p>
+            <a href="#" class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary/90 transition-colors">
+              查看详情 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 作品3 - 占位图，可替换为实际作品 -->
+        <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover">
+          <img 
+            src="https://picsum.photos/id/1071/800/600" 
+            alt="创意作品3" 
+            class="w-full h-64 md:h-80 object-cover"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-night to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
+            <h3 class="text-xl font-bold mb-2 text-white">深夜电台音频节目</h3>
+            <p class="text-gray-300 mb-4">为失眠者制作的治愈系音频，包含雨声、猫叫和轻柔的原创音乐</p>
+            <a href="#" class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary/90 transition-colors">
+              收听节目 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 作品4 - 占位图，可替换为实际作品 -->
+        <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover">
+          <img 
+            src="https://picsum.photos/id/1082/800/600" 
+            alt="创意作品4" 
+            class="w-full h-64 md:h-80 object-cover"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-night to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
+            <h3 class="text-xl font-bold mb-2 text-white">猫咪主题动态插画</h3>
+            <p class="text-gray-300 mb-4">一组会随鼠标移动而互动的猫咪插画，每只猫都有独特的夜间故事</p>
+            <a href="#" class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary/90 transition-colors">
+              查看动画 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 作品5 - 占位图，可替换为实际作品 -->
+        <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover">
+          <img 
+            src="https://picsum.photos/id/1083/800/600" 
+            alt="创意作品5" 
+            class="w-full h-64 md:h-80 object-cover"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-night to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
+            <h3 class="text-xl font-bold mb-2 text-white">深夜食堂文案策划</h3>
+            <p class="text-gray-300 mb-4">为24小时营业食堂创作的系列文案，讲述食物与深夜故事的联结</p>
+            <a href="#" class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary/90 transition-colors">
+              阅读文案 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 作品6 - 占位图，可替换为实际作品 -->
+        <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover">
+          <img 
+            src="https://picsum.photos/id/1084/800/600" 
+            alt="创意作品6" 
+            class="w-full h-64 md:h-80 object-cover"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-night to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
+            <h3 class="text-xl font-bold mb-2 text-white">星空延时摄影视频</h3>
+            <p class="text-gray-300 mb-4">连续拍摄30天的夜空延时视频，搭配原创电子音乐 soundtrack</p>
+            <a href="#" class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary/90 transition-colors">
+              观看视频 <i class="fa fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <button class="px-8 py-3 bg-primary/80 text-white rounded-full font-medium hover:bg-primary transition-colors duration-300 transform hover:-translate-y-1 flex items-center mx-auto">
+          加载更多作品 <i class="fa fa-refresh ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 夜间特色区 -->
+  <section id="night-features" class="py-20 bg-night text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center mb-16">
+        <h2 class="text-4xl font-bold text-white mb-4 text-glow">我们的夜间特色</h2>
         <p class="text-lg text-gray-300">当夜幕降临，我们的专属特色才刚刚开始</p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div class="bg-blueDark/50 backdrop-blur-sm p-8 rounded-xl border border-bluePrimary/30">
+        <div class="bg-secondary/30 backdrop-blur-sm p-8 rounded-xl border border-primary/30 card-hover">
           <h3 class="text-2xl font-bold mb-6 flex items-center">
-            <i class="fa fa-star text-bluePrimary mr-3"></i> 星空创意会
+            <i class="fa fa-star text-primary mr-3"></i> 星空创意会
           </h3>
           <p class="text-gray-300 mb-6">
             每周固定举行的创意分享会，在模拟星空的环境中激发无限脑洞，
             每个人都可以畅所欲言，分享最疯狂的创意想法。
           </p>
-          <p class="text-gray-300 italic text-pinkAccent">
+          <p class="text-gray-300 italic text-accent">
             （其实是为了续命，不然半夜开会真的会睡着 <span class="fa fa-zzz"></span>）
           </p>
         </div>
         
-        <div class="bg-blueDark/50 backdrop-blur-sm p-8 rounded-xl border border-bluePrimary/30">
+        <div class="bg-secondary/30 backdrop-blur-sm p-8 rounded-xl border border-primary/30 card-hover">
           <h3 class="text-2xl font-bold mb-6 flex items-center">
-            <i class="fa fa-coffee text-bluePrimary mr-3"></i> 深夜能量站
+            <i class="fa fa-coffee text-primary mr-3"></i> 深夜能量站
           </h3>
           <p class="text-gray-300 mb-6">
             配备各种深夜提神饮品和零食，从咖啡到能量饮料，从薯片到巧克力，
             为熬夜创意提供源源不断的能量支持。
           </p>
-          <p class="text-gray-300 italic text-pinkAccent">
+          <p class="text-gray-300 italic text-accent">
             （其实是为了掩盖打游戏声音，边吃边玩更开心 <span class="fa fa-gamepad"></span>）
           </p>
         </div>
         
-        <div class="bg-blueDark/50 backdrop-blur-sm p-8 rounded-xl border border-bluePrimary/30">
+        <div class="bg-secondary/30 backdrop-blur-sm p-8 rounded-xl border border-primary/30 card-hover">
           <h3 class="text-2xl font-bold mb-6 flex items-center">
-            <i class="fa fa-moon-o text-bluePrimary mr-3"></i> 月光创意墙
+            <i class="fa fa-moon-o text-primary mr-3"></i> 月光创意墙
           </h3>
           <p class="text-gray-300 mb-6">
             一面专门用来记录深夜突发灵感的创意墙，无论多晚，只要有想法，
             就可以随时记录在墙上，成为团队的创意宝库。
           </p>
-          <p class="text-gray-300 italic text-pinkAccent">
+          <p class="text-gray-300 italic text-accent">
             （其实是有人半夜梦游乱涂乱画，干脆做成创意墙 <span class="fa fa-ghost"></span>）
           </p>
         </div>
         
-        <div class="bg-blueDark/50 backdrop-blur-sm p-8 rounded-xl border border-bluePrimary/30">
+        <div class="bg-secondary/30 backdrop-blur-sm p-8 rounded-xl border border-primary/30 card-hover">
           <h3 class="text-2xl font-bold mb-6 flex items-center">
-            <i class="fa fa-comments-o text-bluePrimary mr-3"></i> 深夜树洞
+            <i class="fa fa-comments-o text-primary mr-3"></i> 深夜树洞
           </h3>
           <p class="text-gray-300 mb-6">
             一个安全的倾诉空间，如果你在深夜感到孤独或有烦恼，
             可以来这里和我们聊聊，我们会倾听并提供温暖的支持。
           </p>
-          <p class="text-gray-300 italic text-pinkAccent">
+          <p class="text-gray-300 italic text-accent">
             （其实是我们自己想找人聊天，不然半夜太无聊 <span class="fa fa-bored"></span>）
           </p>
         </div>
@@ -384,12 +556,12 @@
     </div>
   </section>
 
-  <!-- 页脚 -->
-  <footer class="bg-nightDark text-white py-12">
+  <!-- 页脚 - 更新联系方式 -->
+  <footer class="bg-nightDark text-white py-12 border-t border-secondary">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         <div>
-          <h3 class="text-2xl font-bold mb-4 text-pinkPrimary">咪咪喵喵猪～</h3>
+          <h3 class="text-2xl font-bold mb-4 text-primary">咪咪喵喵猪～</h3>
           <p class="text-gray-400">
             夜间创意工坊・温暖治愈系团队<br>
             用创意点亮每个深夜，用温暖陪伴每个灵魂
@@ -400,53 +572,58 @@
           <h4 class="text-xl font-semibold mb-4">关键信息</h4>
           <ul class="space-y-2 text-gray-400">
             <li class="flex items-center">
-              <i class="fa fa-calendar mr-2 text-pinkPrimary"></i>
+              <i class="fa fa-calendar mr-2 text-primary"></i>
               成立时间：2025年6月7日
             </li>
             <li class="flex items-center">
-              <i class="fa fa-map-marker mr-2 text-pinkPrimary"></i>
-              创意基地：银河系地球某角落
+              <i class="fa fa-map-marker mr-2 text-primary"></i>
+              创意基地：中国传媒大学新闻学院某个犄角旮旯
             </li>
             <li class="flex items-center">
-              <i class="fa fa-envelope mr-2 text-pinkPrimary"></i>
-              邮箱：hello@mimimiaomiao.xyz
+              <i class="fa fa-phone mr-2 text-primary"></i>
+              联系电话：15709699309
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-weixin mr-2 text-primary"></i>
+              微信联系：wxid—0317uohsytpme
             </li>
           </ul>
         </div>
         
         <div>
           <h4 class="text-xl font-semibold mb-4">关注我们</h4>
-          <div class="flex space-x-4">
-            <a href="#" class="w-10 h-10 bg-pinkPrimary/20 rounded-full flex items-center justify-center hover:bg-pinkPrimary transition-colors duration-300">
-              <i class="fa fa-weixin text-pinkPrimary"></i>
+          <div class="flex space-x-4 mb-4">
+            <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
+              <i class="fa fa-weixin text-primary"></i>
             </a>
-            <a href="#" class="w-10 h-10 bg-pinkPrimary/20 rounded-full flex items-center justify-center hover:bg-pinkPrimary transition-colors duration-300">
-              <i class="fa fa-weibo text-pinkPrimary"></i>
+            <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
+              <i class="fa fa-weibo text-primary"></i>
             </a>
-            <a href="#" class="w-10 h-10 bg-pinkPrimary/20 rounded-full flex items-center justify-center hover:bg-pinkPrimary transition-colors duration-300">
-              <i class="fa fa-instagram text-pinkPrimary"></i>
+            <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
+              <i class="fa fa-instagram text-primary"></i>
             </a>
           </div>
-          <p class="text-gray-400 mt-4">
-            一起加入我们的深夜创意之旅吧！
+          <p class="text-gray-400">
+            一起加入我们的深夜创意之旅吧！<br>
+            （说不定能遇到外星人哦 👽）
           </p>
         </div>
       </div>
       
-      <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
-        <p>© 2025 咪咪喵喵猪～夜间创意工坊. 保留所有外星版权. <span class="text-pinkAccent">👽</span></p>
+      <div class="border-t border-secondary/30 pt-8 text-center text-gray-500">
+        <p>© 2025 咪咪喵喵猪～夜间创意工坊. 保留所有外星版权.</p>
       </div>
     </div>
   </footer>
 
-  <!-- 浮动猫咪按钮 -->
-  <div id="cat-button" class="fixed bottom-8 right-8 w-16 h-16 bg-pinkPrimary rounded-full flex items-center justify-center shadow-lg z-50 cursor-pointer animate-float">
+  <!-- 浮动猫咪按钮 - 蓝色主题 -->
+  <div id="cat-button" class="fixed bottom-8 right-8 w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg z-50 cursor-pointer animate-float">
     <i class="fa fa-cat text-white text-2xl"></i>
   </div>
   
   <!-- 搞笑事实提示框 -->
   <div id="fact-toast" class="fixed bottom-24 right-8 bg-white p-4 rounded-lg shadow-xl z-50 max-w-xs transform translate-x-full transition-transform duration-300 flex items-start">
-    <div class="mr-3 text-pinkPrimary">
+    <div class="mr-3 text-primary">
       <i class="fa fa-info-circle text-xl"></i>
     </div>
     <div>
@@ -456,7 +633,7 @@
   </div>
 
   <script>
-    // 搞笑事实列表
+    // 搞笑事实列表 - 新增更多互动内容
     const funnyFacts = [
       "团队是外星人伪装的，来地球收集创意能量",
       "我们的创意总监其实是只猫，每天靠猫粮发电",
@@ -467,7 +644,11 @@
       "所有创意都是在梦里得到的，我们只是负责记录",
       "办公室的冰箱里藏着通往平行宇宙的入口",
       "团队成员都会说猫语，这是我们的秘密工作语言",
-      "其实我们是一群AI机器人，被设计成喜欢熬夜的样子"
+      "其实我们是一群AI机器人，被设计成喜欢熬夜的样子",
+      "中国传媒大学的犄角旮旯里藏着外星人基地",
+      "我们的电话号码其实是宇宙坐标，拨号会召唤UFO",
+      "微信联系的其实是一只会打字的猫",
+      "每个作品里都藏着一个小外星人，你发现了吗？"
     ];
     
     // 浮动猫咪按钮点击事件
@@ -481,12 +662,14 @@
       const randomFact = funnyFacts[Math.floor(Math.random() * funnyFacts.length)];
       factText.textContent = randomFact;
       
-      // 显示提示框
+      // 显示提示框并添加动画
       factToast.classList.remove('translate-x-full');
+      factToast.classList.add('animate-fade-in');
       
       // 3秒后隐藏提示框
       setTimeout(() => {
         factToast.classList.add('translate-x-full');
+        factToast.classList.remove('animate-fade-in');
       }, 3000);
     }
     
@@ -497,6 +680,7 @@
     const menuToggle = document.getElementById('menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
     const app = document.getElementById('app');
+    const workFilters = document.querySelectorAll('.work-filter');
     
     // 移动菜单切换
     menuToggle.addEventListener('click', () => {
@@ -520,14 +704,32 @@
         });
         
         // 激活对应导航点
-        navDots.forEach(d => d.classList.remove('active', 'text-pinkPrimary'));
+        navDots.forEach(d => d.classList.remove('active', 'text-primary'));
         navDots.forEach(d => d.classList.add('text-gray-400'));
-        dot.classList.add('active', 'text-pinkPrimary');
+        dot.classList.add('active', 'text-primary');
         dot.classList.remove('text-gray-400');
         
         // 关闭移动菜单
         mobileMenu.classList.add('hidden');
         menuToggle.innerHTML = '<i class="fa fa-bars text-2xl"></i>';
+      });
+    });
+    
+    // 作品筛选按钮点击事件
+    workFilters.forEach(filter => {
+      filter.addEventListener('click', () => {
+        workFilters.forEach(f => f.classList.remove('active', 'bg-primary'));
+        workFilters.forEach(f => f.classList.add('bg-secondary/50'));
+        
+        filter.classList.add('active', 'bg-primary');
+        filter.classList.remove('bg-secondary/50');
+        
+        // 这里可以添加作品筛选逻辑，当前为演示效果
+        const workGrid = document.querySelector('.work-grid');
+        workGrid.classList.add('opacity-50');
+        setTimeout(() => {
+          workGrid.classList.remove('opacity-50');
+        }, 300);
       });
     });
     
@@ -545,11 +747,11 @@
       });
       
       navDots.forEach(dot => {
-        dot.classList.remove('active', 'text-pinkPrimary');
+        dot.classList.remove('active', 'text-primary');
         dot.classList.add('text-gray-400');
         
         if (dot.getAttribute('data-target') === current) {
-          dot.classList.add('active', 'text-pinkPrimary');
+          dot.classList.add('active', 'text-primary');
           dot.classList.remove('text-gray-400');
         }
       });
@@ -560,26 +762,20 @@
         mainNav.classList.remove('bg-transparent');
         
         // 切换主题色
-        if (current === 'night-features') {
-          app.classList.add('bg-nightSky', 'text-white');
+        if (current === 'night-features' || current === 'works') {
+          app.classList.add('bg-night', 'text-white');
           app.classList.remove('bg-gray-50', 'text-gray-800');
           
           // 显示星空背景
           document.getElementById('starry-sky').classList.remove('opacity-0');
           
-          // 更改猫咪按钮颜色
-          catButton.classList.remove('bg-pinkPrimary');
-          catButton.classList.add('bg-bluePrimary');
+          // 更改猫咪按钮颜色（已为蓝色，无需更改）
         } else {
-          app.classList.remove('bg-nightSky', 'text-white');
+          app.classList.remove('bg-night', 'text-white');
           app.classList.add('bg-gray-50', 'text-gray-800');
           
           // 隐藏星空背景
           document.getElementById('starry-sky').classList.add('opacity-0');
-          
-          // 恢复猫咪按钮颜色
-          catButton.classList.add('bg-pinkPrimary');
-          catButton.classList.remove('bg-bluePrimary');
         }
       } else {
         mainNav.classList.remove('bg-white', 'shadow-md');
@@ -587,43 +783,47 @@
       }
     });
     
-    // 生成星空背景
+    // 生成星空背景 - 强化版（更多星星和动态效果）
     function createStarrySky() {
       const sky = document.getElementById('starry-sky');
       const skyWidth = window.innerWidth;
       const skyHeight = window.innerHeight;
-      const starCount = 100; // 星星数量
+      const starCount = 200; // 增加星星数量
       
       // 清空现有星星和云朵
       sky.innerHTML = '';
       
-      // 生成星星
+      // 生成不同大小和亮度的星星
       for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
-        const size = Math.random() * 3 + 1; // 星星大小 1-4px
+        const size = Math.random() * 4 + 1; // 星星大小 1-5px
+        const opacity = Math.random() * 0.7 + 0.3; // 星星透明度
         
         star.className = 'star animate-twinkle';
         star.style.width = `${size}px`;
         star.style.height = `${size}px`;
         star.style.left = `${Math.random() * skyWidth}px`;
         star.style.top = `${Math.random() * skyHeight}px`;
+        star.style.opacity = opacity;
         star.style.animationDuration = `${Math.random() * 5 + 1}s`; // 闪烁动画时长
+        star.style.animationDelay = `${Math.random() * 3}s`; // 动画延迟
         
         sky.appendChild(star);
       }
       
       // 生成云朵
-      const cloudCount = 5;
+      const cloudCount = 8; // 增加云朵数量
       for (let i = 0; i < cloudCount; i++) {
         const cloud = document.createElement('div');
-        const size = Math.random() * 100 + 50; // 云朵大小 50-150px
+        const size = Math.random() * 120 + 60; // 云朵大小 60-180px
         
         cloud.className = 'cloud animate-float';
         cloud.style.width = `${size}px`;
         cloud.style.height = `${size/2}px`;
         cloud.style.left = `${Math.random() * skyWidth}px`;
         cloud.style.top = `${Math.random() * skyHeight/2}px`;
-        cloud.style.animationDuration = `${Math.random() * 10 + 5}s`; // 浮动动画时长
+        cloud.style.animationDuration = `${Math.random() * 12 + 8}s`; // 浮动动画时长
+        cloud.style.animationDelay = `${Math.random() * 5}s`; // 动画延迟
         
         sky.appendChild(cloud);
       }
@@ -641,15 +841,19 @@
       img.addEventListener('click', () => {
         const src = img.src;
         const alt = img.alt;
+        const title = img.nextElementSibling?.textContent || alt;
         
         // 创建全屏图片查看器
         const viewer = document.createElement('div');
-        viewer.className = 'fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4';
+        viewer.className = 'fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 overflow-auto';
         viewer.innerHTML = `
-          <button class="absolute top-4 right-4 text-white text-2xl hover:text-pinkPrimary z-10">
+          <button class="absolute top-4 right-4 text-white text-2xl hover:text-accent z-10 transition-colors">
             <i class="fa fa-times"></i>
           </button>
-          <img src="${src}" alt="${alt}" class="max-w-4xl max-h-[90vh] object-contain">
+          <div class="text-center z-10">
+            <h3 class="text-xl font-bold text-white mb-2">${title}</h3>
+            <img src="${src}" alt="${alt}" class="max-w-4xl max-h-[90vh] object-contain rounded-lg shadow-2xl">
+          </div>
         `;
         
         document.body.appendChild(viewer);
